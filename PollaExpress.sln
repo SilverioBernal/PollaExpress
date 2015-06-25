@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orkidea.PollaExpress.Business", "Orkidea.PollaExpress.Business\Orkidea.PollaExpress.Business.csproj", "{ADAEDEEF-1A57-476D-B03A-5BABEF40E518}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{E620E13A-D61D-4EEA-AC22-E4E55F3B727A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataManagement", "DataManagement", "{4FA5CBFE-7309-4F35-8308-A5403B8A5055}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orkidea.PollaExpress.DAL", "Orkidea.PollaExpress.DAL\Orkidea.PollaExpress.DAL.csproj", "{B2A6CD14-15BF-4B1C-A17D-98BA8546F35F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orkidea.PollaExpress.Entities", "Orkidea.PollaExpress.Entities\Orkidea.PollaExpress.Entities.csproj", "{4572CF36-F88E-4C32-B15D-AB24BA5B4A84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orkidea.PollaExpress.WebFront", "Orkidea.PollaExpress.WebFront\Orkidea.PollaExpress.WebFront.csproj", "{2867B669-45FC-4127-A573-30F2004D8170}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ADAEDEEF-1A57-476D-B03A-5BABEF40E518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADAEDEEF-1A57-476D-B03A-5BABEF40E518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADAEDEEF-1A57-476D-B03A-5BABEF40E518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADAEDEEF-1A57-476D-B03A-5BABEF40E518}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2A6CD14-15BF-4B1C-A17D-98BA8546F35F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2A6CD14-15BF-4B1C-A17D-98BA8546F35F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2A6CD14-15BF-4B1C-A17D-98BA8546F35F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2A6CD14-15BF-4B1C-A17D-98BA8546F35F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4572CF36-F88E-4C32-B15D-AB24BA5B4A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4572CF36-F88E-4C32-B15D-AB24BA5B4A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4572CF36-F88E-4C32-B15D-AB24BA5B4A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4572CF36-F88E-4C32-B15D-AB24BA5B4A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2867B669-45FC-4127-A573-30F2004D8170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2867B669-45FC-4127-A573-30F2004D8170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2867B669-45FC-4127-A573-30F2004D8170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2867B669-45FC-4127-A573-30F2004D8170}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ADAEDEEF-1A57-476D-B03A-5BABEF40E518} = {E620E13A-D61D-4EEA-AC22-E4E55F3B727A}
+		{B2A6CD14-15BF-4B1C-A17D-98BA8546F35F} = {4FA5CBFE-7309-4F35-8308-A5403B8A5055}
+		{4572CF36-F88E-4C32-B15D-AB24BA5B4A84} = {4FA5CBFE-7309-4F35-8308-A5403B8A5055}
+	EndGlobalSection
+EndGlobal
