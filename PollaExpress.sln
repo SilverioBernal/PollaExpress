@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orkidea.PollaExpress.Entiti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orkidea.PollaExpress.WebFront", "Orkidea.PollaExpress.WebFront\Orkidea.PollaExpress.WebFront.csproj", "{2867B669-45FC-4127-A573-30F2004D8170}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GUI", "GUI", "{D2CB968D-B20A-469A-9CC4-B8A6826A14FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{B47217BB-A83E-4526-9B62-DB45DA0804FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orkidea.PollaExpress.Utilities", "Orkidea.PollaExpress.Utilities\Orkidea.PollaExpress.Utilities.csproj", "{0819E37E-6C5E-4338-852A-C68EC0CB8EA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +43,10 @@ Global
 		{2867B669-45FC-4127-A573-30F2004D8170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2867B669-45FC-4127-A573-30F2004D8170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2867B669-45FC-4127-A573-30F2004D8170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0819E37E-6C5E-4338-852A-C68EC0CB8EA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0819E37E-6C5E-4338-852A-C68EC0CB8EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0819E37E-6C5E-4338-852A-C68EC0CB8EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0819E37E-6C5E-4338-852A-C68EC0CB8EA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,5 +55,7 @@ Global
 		{ADAEDEEF-1A57-476D-B03A-5BABEF40E518} = {E620E13A-D61D-4EEA-AC22-E4E55F3B727A}
 		{B2A6CD14-15BF-4B1C-A17D-98BA8546F35F} = {4FA5CBFE-7309-4F35-8308-A5403B8A5055}
 		{4572CF36-F88E-4C32-B15D-AB24BA5B4A84} = {4FA5CBFE-7309-4F35-8308-A5403B8A5055}
+		{2867B669-45FC-4127-A573-30F2004D8170} = {D2CB968D-B20A-469A-9CC4-B8A6826A14FD}
+		{0819E37E-6C5E-4338-852A-C68EC0CB8EA2} = {B47217BB-A83E-4526-9B62-DB45DA0804FF}
 	EndGlobalSection
 EndGlobal
