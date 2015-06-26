@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Orkidea.PollaExpress.WebFront.Models;
+using System.Configuration;
+using Orkidea.PollaExpress.Utilities;
 
 namespace Orkidea.PollaExpress.WebFront
 {
@@ -58,10 +60,13 @@ namespace Orkidea.PollaExpress.WebFront
             //   appId: "",
             //   appSecret: "");
 
+            string googleClientId = Cryptography.Decrypt(ConfigurationManager.AppSettings["googleClientId"].ToString());
+            string googleClientSecret = Cryptography.Decrypt(ConfigurationManager.AppSettings["googleClientSecret"].ToString());
+
             app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             {
-                ClientId = "714815953436-62dav6d9gatg193shg2fb1vmed9qe6hr.apps.googleusercontent.com",
-                ClientSecret = "GzrVC935C3sfK_Eq-KN1TcgB"
+                ClientId = googleClientId,
+                ClientSecret = googleClientSecret
             });
         }
     }

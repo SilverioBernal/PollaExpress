@@ -12,21 +12,11 @@ namespace Orkidea.PollaExpress.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class mimetype
     {
-        public Customer()
-        {
-            this.Prediction = new HashSet<Prediction>();
-        }
-    
-        public string id { get; set; }
-        public string nombre { get; set; }
-        public string logo { get; set; }
-        public string email { get; set; }
-        public bool mostrarTodo { get; set; }
-        public int ganadoresPartido { get; set; }
-        public string vendidoPor { get; set; }
-    
-        public virtual ICollection<Prediction> Prediction { get; set; }
+        public int Id { get; set; }
+        public string name { get; set; }
+        public string mimetype1 { get; set; }
+        public string extension { get; set; }
     }
 }

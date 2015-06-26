@@ -9,31 +9,31 @@ using System.Threading.Tasks;
 
 namespace Orkidea.PollaExpress.DAL
 {
-    public static class CustomerCRUD
+    public static class GameCRUD
     {
-        /*CRUD customer*/
+        /*CRUD game*/
 
-        public static List<Customer> GetCustomerList()
+        public static List<Game> GetGameList()
         {
 
-            List<Customer> lstCustomer = new List<Customer>();
+            List<Game> lstGame = new List<Game>();
 
             try
             {
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     ctx.Configuration.ProxyCreationEnabled = false;
-                    lstCustomer = ctx.Customer.ToList();
+                    lstGame = ctx.Game.ToList();
                 }
             }
             catch (Exception ex) { throw ex; }
 
-            return lstCustomer;
+            return lstGame;
         }
 
-        public static Customer GetCustomerByKey(string id)
+        public static Game GetGameByKey(int idGame)
         {
-            Customer oCustomer = new Customer();
+            Game oGame = new Game();
 
             try
             {
@@ -41,16 +41,16 @@ namespace Orkidea.PollaExpress.DAL
                 {
                     ctx.Configuration.ProxyCreationEnabled = false;
 
-                    oCustomer =
-                        ctx.Customer.Where(x => x.id == id).FirstOrDefault();
+                    oGame =
+                        ctx.Game.Where(x => x.id.Equals(idGame)).FirstOrDefault();
                 }
             }
             catch (Exception ex) { throw ex; }
 
-            return oCustomer;
+            return oGame;
         }
 
-        public static void SaveCustomer(Customer customer)
+        public static void SaveGame(Game game)
         {
 
             try
@@ -58,19 +58,19 @@ namespace Orkidea.PollaExpress.DAL
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     //verify if the student exists
-                    Customer oCustomer = GetCustomerByKey(customer.id);
+                    Game oGame = GetGameByKey(game.id);
 
-                    if (oCustomer != null)
+                    if (oGame != null)
                     {
                         // if exists then edit 
-                        ctx.Customer.Attach(oCustomer);
-                        EntityFrameworkHelper.EnumeratePropertyDifferences(oCustomer, customer);
+                        ctx.Game.Attach(oGame);
+                        EntityFrameworkHelper.EnumeratePropertyDifferences(oGame, game);
                         ctx.SaveChanges();
                     }
                     else
                     {
                         // else create
-                        ctx.Customer.Add(customer);
+                        ctx.Game.Add(game);
                         ctx.SaveChanges();
                     }
                 }
@@ -96,20 +96,20 @@ namespace Orkidea.PollaExpress.DAL
             catch (Exception ex) { throw ex; }
         }
 
-        public static void DeleteCustomer(string id)
+        public static void DeleteGame(int idGame)
         {
             try
             {
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     //verify if the school exists
-                    Customer oCustomer = GetCustomerByKey(id);
+                    Game oGame = GetGameByKey(idGame);
 
-                    if (oCustomer != null)
+                    if (oGame != null)
                     {
                         // if exists then edit 
-                        ctx.Customer.Attach(oCustomer);
-                        ctx.Customer.Remove(oCustomer);
+                        ctx.Game.Attach(oGame);
+                        ctx.Game.Remove(oGame);
                         ctx.SaveChanges();
                     }
                 }

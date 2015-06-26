@@ -12,21 +12,16 @@ namespace Orkidea.PollaExpress.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class AspNetRoles
     {
-        public Customer()
+        public AspNetRoles()
         {
-            this.Prediction = new HashSet<Prediction>();
+            this.AspNetUsers = new HashSet<AspNetUsers>();
         }
     
-        public string id { get; set; }
-        public string nombre { get; set; }
-        public string logo { get; set; }
-        public string email { get; set; }
-        public bool mostrarTodo { get; set; }
-        public int ganadoresPartido { get; set; }
-        public string vendidoPor { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual ICollection<Prediction> Prediction { get; set; }
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

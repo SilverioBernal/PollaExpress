@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Orkidea.PollaExpress.Entities.Game>
+
+@{
+    ViewBag.Title = "Game";    
+}
+
+<h2>Selecciona el partido</h2>
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <a href="@Url.Action("trivia", new { id = ViewBag.id.Trim()+"|"+ item.id.ToString().Trim()})" class="btn btn-info col-md-12">@item.team1 Vs @item.team2</a>
+        </div>
+    </div>
+    <br />
+}

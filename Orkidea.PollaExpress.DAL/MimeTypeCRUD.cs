@@ -9,31 +9,40 @@ using System.Threading.Tasks;
 
 namespace Orkidea.PollaExpress.DAL
 {
-    public static class CustomerCRUD
+    public static class MimeTypeCRUD
     {
-        /*CRUD customer*/
+        /*CRUD mimetypes*/
 
-        public static List<Customer> GetCustomerList()
+        /// <summary>
+        /// Retrieve mimetypes list without parameters
+        /// </summary>
+        /// <returns></returns>
+        public static List<mimetype> GetmimetypeList()
         {
 
-            List<Customer> lstCustomer = new List<Customer>();
+            List<mimetype> lstmimetype = new List<mimetype>();
 
             try
             {
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     ctx.Configuration.ProxyCreationEnabled = false;
-                    lstCustomer = ctx.Customer.ToList();
+                    lstmimetype = ctx.mimetype.ToList();
                 }
             }
             catch (Exception ex) { throw ex; }
 
-            return lstCustomer;
+            return lstmimetype;
         }
 
-        public static Customer GetCustomerByKey(string id)
+        /// <summary>
+        /// Retrieve mimetype information based in the primary key
+        /// </summary>
+        /// <param name="mimetypeTarget"></param>
+        /// <returns></returns>
+        public static mimetype GetMimeType(int id)
         {
-            Customer oCustomer = new Customer();
+            mimetype omimetype = new mimetype();
 
             try
             {
@@ -41,36 +50,62 @@ namespace Orkidea.PollaExpress.DAL
                 {
                     ctx.Configuration.ProxyCreationEnabled = false;
 
-                    oCustomer =
-                        ctx.Customer.Where(x => x.id == id).FirstOrDefault();
+                    omimetype = ctx.mimetype.Where(x => x.Id.Equals(id)).FirstOrDefault();
                 }
             }
             catch (Exception ex) { throw ex; }
 
-            return oCustomer;
+            return omimetype;
         }
 
-        public static void SaveCustomer(Customer customer)
+        /// <summary>
+        /// Retrieve mimetype information based in the primary key
+        /// </summary>
+        /// <param name="mimetypeTarget"></param>
+        /// <returns></returns>
+        public static mimetype GetMimeType(string extension)
+        {
+            mimetype omimetype = new mimetype();
+
+            try
+            {
+                using (var ctx = new PollaExpressDBEntities())
+                {
+                    ctx.Configuration.ProxyCreationEnabled = false;
+
+                    omimetype = ctx.mimetype.Where(x => x.extension == extension).FirstOrDefault();
+                }
+            }
+            catch (Exception ex) { throw ex; }
+
+            return omimetype;
+        }
+
+        /// <summary>
+        /// Create or update a mimetype
+        /// </summary>
+        /// <param name="mimetypeTarget"></param>
+        public static void Savemimetype(mimetype mimetypeTarget)
         {
 
             try
             {
                 using (var ctx = new PollaExpressDBEntities())
                 {
-                    //verify if the student exists
-                    Customer oCustomer = GetCustomerByKey(customer.id);
+                    //verify if the mimetype exists
+                    mimetype omimetype = GetMimeType(mimetypeTarget.Id);
 
-                    if (oCustomer != null)
+                    if (omimetype != null)
                     {
                         // if exists then edit 
-                        ctx.Customer.Attach(oCustomer);
-                        EntityFrameworkHelper.EnumeratePropertyDifferences(oCustomer, customer);
+                        ctx.mimetype.Attach(omimetype);
+                        EntityFrameworkHelper.EnumeratePropertyDifferences(omimetype, mimetypeTarget);
                         ctx.SaveChanges();
                     }
                     else
                     {
                         // else create
-                        ctx.Customer.Add(customer);
+                        ctx.mimetype.Add(mimetypeTarget);
                         ctx.SaveChanges();
                     }
                 }
@@ -96,20 +131,24 @@ namespace Orkidea.PollaExpress.DAL
             catch (Exception ex) { throw ex; }
         }
 
-        public static void DeleteCustomer(string id)
+        /// <summary>
+        /// Delete a mimetype
+        /// </summary>
+        /// <param name="mimetypeTarget"></param>
+        public static void Deletemimetype(mimetype mimetypeTarget)
         {
             try
             {
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     //verify if the school exists
-                    Customer oCustomer = GetCustomerByKey(id);
+                    mimetype omimetype = GetMimeType(mimetypeTarget.Id);
 
-                    if (oCustomer != null)
+                    if (omimetype != null)
                     {
                         // if exists then edit 
-                        ctx.Customer.Attach(oCustomer);
-                        ctx.Customer.Remove(oCustomer);
+                        ctx.mimetype.Attach(omimetype);
+                        ctx.mimetype.Remove(omimetype);
                         ctx.SaveChanges();
                     }
                 }
@@ -118,7 +157,7 @@ namespace Orkidea.PollaExpress.DAL
             {
                 if (ex.InnerException.InnerException.Message.Contains("REFERENCE constraint"))
                 {
-                    throw new Exception("No se puede eliminar esta sede porque existe información asociada a esta.");
+                    throw new Exception("No se puede eliminar este grado porque existe información asociada a este.");
                 }
             }
             catch (Exception ex) { throw ex; }

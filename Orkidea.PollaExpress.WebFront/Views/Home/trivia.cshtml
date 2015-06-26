@@ -1,0 +1,218 @@
+﻿@model Orkidea.PollaExpress.WebFront.Models.VmPolla
+
+@{
+    ViewBag.Title = "trivia";
+}
+
+
+@*<h2>Polla @ViewBag.id</h2>*@
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.idCustomer)
+    @Html.HiddenFor(model => model.userName)
+    @Html.HiddenFor(model => model.userMailAddress)
+    @Html.HiddenFor(model => model.idGame)
+
+
+    <div class="row customerLogo col-md-12">
+        <img src="@Url.Action("GetLogo", new { archivo = ViewBag.logo })" class="img-responsive" align="middle" />
+        <h3>Ingresa tus predicciones</h3>
+    </div>
+
+    
+    <div class="container divGris">
+        <div class="row col-md-12">
+            <label class="questionTitle">MARCADOR DEL PARTIDO</label>
+        </div>
+        <div class="row col-md-12 col-xs-12" style=" margin-bottom: 15px;">
+            <div class="col-md-6 col-xs-6">
+                <span>@ViewBag.team1</span>
+                @Html.EditorFor(model => model.team1Score, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.team1Score, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <span> @ViewBag.team2</span>
+                @Html.EditorFor(model => model.team2Score, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.team2Score, "", new { @class = "text-danger" })
+
+            </div>
+        </div>
+        <span> </span>
+    </div>
+
+    <div class="container divBlanco">
+        <div class="row col-md-12 col-xs-12">
+            <label class="questionTitle">QUE EQUIPO HARÁ EL SAQUE INICIAL</label>
+            @foreach (var item in Model.lsSimpleTeams)
+                {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.saqueInicial, 0, new { id = "saque" + @item })
+                        @item
+                    </label>
+                </div>
+                }
+        </div>
+    </div>
+
+    <div class="container divGris">
+        <div class="row col-md-12">
+            <label class="questionTitle">QUE EQUIPO COBRARÁ EL PRIMER TIRO DE ESQUINA</label>
+            @foreach (var item in Model.lsComplexTeams)
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.primerTiroEsquina, 0, new { id = "tiroEsquina" + @item })
+                        @item
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container divBlanco">
+        <div class="row col-md-12">
+            <label class="questionTitle">QUE EQUIPO RECIBIRÁ LA PRIMERA TARJETA AMARILLA</label>
+            @foreach (var item in Model.lsComplexTeams)
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.primeraTarjetaAmarilla, 0, new { id = "tiroEsquina" + @item })
+                        @item
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+    
+    <div class="container divGris">
+        <div class="row col-md-12">
+            <label class="questionTitle">QUE EQUIPO HARÁ EL PRIMER CAMBIO</label>
+            @foreach (var item in Model.lsComplexTeams)
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.primerCambio, 0, new { id = "tiroEsquina" + @item })
+                        @item
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container divBlanco">
+        <div class="row col-md-12">
+            <label class="questionTitle">EQUIPO GANADOR AL TÉRNINO DEL PRIMER TIEMPO</label>
+            @foreach (var item in Model.lsComplexTeams)
+                {
+            <div class="radio">
+                <label>
+                    @Html.RadioButtonFor(model => model.ganadorPrimerTiempo, 0, new { id = "saque" + @item })
+                    @item
+                </label>
+            </div>
+                }
+        </div>
+    </div>
+
+    <div class="container divGris">
+        <div class="row col-md-12">
+            <label class="questionTitle">QUE EQUIPO ANOTARÁ EN EL PRIMER TIEMPO</label>
+            @foreach (var item in Model.lsComplexTeams)
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.anotacionesPrimerTiempo, 0, new { id = "tiroEsquina" + @item })
+                        @item
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container divBlanco">
+        <div class="row col-md-12">
+            <label class="questionTitle">QUE EQUIPO ANOTARÁ EN EL SEGUNDO TIEMPO</label>
+            @foreach (var item in Model.lsComplexTeams)
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
+                        @item
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container divGris">
+        <div class="row col-md-12">
+            <label class="questionTitle">HABRA TARJETAS ROJAS EN EL PARTIDO</label>
+            @foreach (var item in Model.lsYesNoAnswer)
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
+                        @item
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="container divBlanco">
+        <div class="row col-md-12">
+            <label class="questionTitle">AMBOS EQUIPOS ANOTARAN</label>
+            @foreach (var item in Model.lsYesNoAnswer)
+                {
+            <div class="radio">
+                <label>
+                    @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
+                    @item
+                </label>
+            </div>
+                }
+        </div>
+    </div>
+
+    <div class="container divGris">
+        <div class="row col-md-12">
+            <label class="questionTitle">SE COBRARÁ ALGUN PENALTY EN EL PARTIDO</label>
+            @foreach (var item in Model.lsYesNoAnswer)
+                {
+            <div class="radio">
+                <label>
+                    @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
+                    @item
+                </label>
+            </div>
+                }
+        </div>
+    </div>
+
+    <div class="container divBlanco">
+        <div class="row col-md-12">
+            <label class="questionTitle">QUE EQUIPO COBRARÁ EL PRIMER TIRO LIBRE</label>
+            @foreach (var item in Model.lsComplexTeams)
+                {
+            <div class="radio">
+                <label>
+                    @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
+                    @item
+                </label>
+            </div>
+                }
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-info" />
+        </div>
+    </div>
+
+}
+

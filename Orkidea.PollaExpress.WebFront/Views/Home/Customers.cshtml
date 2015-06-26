@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Orkidea.PollaExpress.Entities.Customer>
+
+@{
+    ViewBag.Title = "Customers";
+}
+
+
+<div class="container">
+    <h2>Clientes</h2>
+    <p>
+        <a href="@Url.Action("CreateCustomer")" class="btn btn-info">Crear nuevo</a>
+    </p>
+    <div class="row col-xs-12 col-md-12">
+        <table class="table table-bordered table-striped table_vam" id="dt">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.id.Trim()</td>
+                        <td>@item.nombre.Trim()</td>
+                        
+                        <td>
+
+                            <a href="@Url.Action("Edit", new { id = item.id })" class="sepV_a" title="Analizar"><i class="fa fa-magic"></i></a>
+                            <a href="@Url.Action("Delete", new { id = item.id })" title="Cerrar"><i class="fa fa-lock"></i></a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('#dt').dataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "Ningun resultado encontrado",
+            "info": "Página _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primera",
+                "last": "Ultima",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+        }
+    });
+</script>
+

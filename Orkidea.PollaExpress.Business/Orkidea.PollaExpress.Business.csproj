@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerBiz.cs" />
+    <Compile Include="GameBiz.cs" />
+    <Compile Include="MimeTypeBiz.cs" />
     <Compile Include="PredictionBiz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

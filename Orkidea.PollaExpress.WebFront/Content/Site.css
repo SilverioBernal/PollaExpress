@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: 'Architects Daughter', cursive;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +22,67 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/*Estilos personalizados del sitio*/
+
+.navbar-brand {
+    font-family: 'Rock Salt', cursive;
+}
+
+.navbar-inverse {
+    /*background-color: #eff0f0*/ /*#222222*/
+    /*border-color: #8d060c ;
+    border-bottom-width:3px;*/
+    /*background: #f0eee9 ;*/
+    background-color: black;
+    background-size: 400px;
+    /*position: relative;*/
+    -webkit-box-shadow: 0px 2px 8px 0px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 2px 8px 0px rgba(0,0,0,1);
+    box-shadow: 0px 2px 8px 0px rgba(0,0,0,1);
+}
+
+    .navbar-inverse .navbar-brand {
+        color: white;
+    }
+
+
+.customerLogo {
+    text-align:center;
+}
+
+    .customerLogo img {
+        min-height: 50px;
+        max-height: 120px;
+        display:block;
+    margin:auto;
+    }
+
+.questionTitle {
+    font-family: 'Architects Daughter', cursive;
+}
+
+h2 {
+    font-family: 'Architects Daughter', cursive;
+}
+
+.divGris {
+    background: #f0eee9 ;
+}
+
+.divBlanco {
+    background-color: white ;
+}
+.footer {
+    position: fixed;
+    height: 25px;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    opacity: 0.7;
+    text-align: center;
+    color: white;
+    font-family: 'Architects Daughter', cursive;
+    font-size:10px;
 }
