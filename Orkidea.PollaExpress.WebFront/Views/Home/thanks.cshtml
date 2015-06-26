@@ -3,7 +3,12 @@
     ViewBag.Title = "thanks";
 }
 
-<h2>Tus predicciones han sido guardadas con éxito</h2>
+<div class="row customerLogo col-md-12">
+    <img src="@Url.Action("GetLogo", new { archivo = ViewBag.logo })" class="img-responsive" align="middle" />
+    <h2>La Polla Express @ViewBag.nombre</h2>
+</div>
+
+<h3>Tus predicciones han sido guardadas con éxito</h3>
 
 <a href="http://www.google.com" class=" btn btn-info">Salir</a>
 

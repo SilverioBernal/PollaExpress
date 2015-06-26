@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "trivia";
+
+    int proceso = 0;
 }
 
 
@@ -22,7 +24,7 @@
         <h3>Ingresa tus predicciones</h3>
     </div>
 
-    
+
     <div class="container divGris">
         <div class="row col-md-12">
             <label class="questionTitle">MARCADOR DEL PARTIDO</label>
@@ -47,27 +49,36 @@
         <div class="row col-md-12 col-xs-12">
             <label class="questionTitle">QUE EQUIPO HARÁ EL SAQUE INICIAL</label>
             @foreach (var item in Model.lsSimpleTeams)
-                {
+            {
                 <div class="radio">
                     <label>
-                        @Html.RadioButtonFor(model => model.saqueInicial, 0, new { id = "saque" + @item })
+                        @Html.RadioButtonFor(model => model.saqueInicial, proceso, new { id = "saque" + @item })
                         @item
                     </label>
+                    @{
+                proceso++;
+                    }
                 </div>
-                }
+            }
         </div>
     </div>
 
     <div class="container divGris">
         <div class="row col-md-12">
             <label class="questionTitle">QUE EQUIPO COBRARÁ EL PRIMER TIRO DE ESQUINA</label>
+            @{
+    proceso = 0;
+            }
             @foreach (var item in Model.lsComplexTeams)
             {
-                <div class="radio">
+                <div class="radio">                    
                     <label>
-                        @Html.RadioButtonFor(model => model.primerTiroEsquina, 0, new { id = "tiroEsquina" + @item })
+                        @Html.RadioButtonFor(model => model.primerTiroEsquina, proceso, new { id = "tiroEsquina" + @item })
                         @item
                     </label>
+                    @{
+                proceso++;
+                    }
                 </div>
             }
         </div>
@@ -75,29 +86,41 @@
 
     <div class="container divBlanco">
         <div class="row col-md-12">
+            @{
+    proceso = 0;
+            }
             <label class="questionTitle">QUE EQUIPO RECIBIRÁ LA PRIMERA TARJETA AMARILLA</label>
             @foreach (var item in Model.lsComplexTeams)
             {
                 <div class="radio">
                     <label>
-                        @Html.RadioButtonFor(model => model.primeraTarjetaAmarilla, 0, new { id = "tiroEsquina" + @item })
+                        @Html.RadioButtonFor(model => model.primeraTarjetaAmarilla, proceso, new { id = "tarjetaAmarilla" + @item })
                         @item
                     </label>
+                    @{
+                proceso++;
+                    }
                 </div>
             }
         </div>
     </div>
-    
+
     <div class="container divGris">
         <div class="row col-md-12">
+            @{
+    proceso = 0;
+            }
             <label class="questionTitle">QUE EQUIPO HARÁ EL PRIMER CAMBIO</label>
             @foreach (var item in Model.lsComplexTeams)
             {
                 <div class="radio">
                     <label>
-                        @Html.RadioButtonFor(model => model.primerCambio, 0, new { id = "tiroEsquina" + @item })
+                        @Html.RadioButtonFor(model => model.primerCambio, proceso, new { id = "primerCambio" + @item })
                         @item
                     </label>
+                    @{
+                proceso++;
+                    }
                 </div>
             }
         </div>
@@ -105,29 +128,37 @@
 
     <div class="container divBlanco">
         <div class="row col-md-12">
-            <label class="questionTitle">EQUIPO GANADOR AL TÉRNINO DEL PRIMER TIEMPO</label>
+            @{proceso = 0;}
+            <label class="questionTitle">EQUIPO GANADOR AL TÉRMINO DEL PRIMER TIEMPO</label>
             @foreach (var item in Model.lsComplexTeams)
-                {
-            <div class="radio">
-                <label>
-                    @Html.RadioButtonFor(model => model.ganadorPrimerTiempo, 0, new { id = "saque" + @item })
-                    @item
-                </label>
-            </div>
-                }
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.ganadorPrimerTiempo, proceso, new { id = "winPrimer" + @item })
+                        @item
+                    </label>
+                    @{
+                proceso++;
+                    }
+                </div>
+            }
         </div>
     </div>
 
     <div class="container divGris">
         <div class="row col-md-12">
+            @{proceso = 0;}
             <label class="questionTitle">QUE EQUIPO ANOTARÁ EN EL PRIMER TIEMPO</label>
-            @foreach (var item in Model.lsComplexTeams)
+            @foreach (var item in Model.lsSimpleTeams)
             {
                 <div class="radio">
                     <label>
-                        @Html.RadioButtonFor(model => model.anotacionesPrimerTiempo, 0, new { id = "tiroEsquina" + @item })
+                        @Html.RadioButtonFor(model => model.anotacionesPrimerTiempo, proceso, new { id = "anotaPrimer" + @item })
                         @item
                     </label>
+                    @{
+                    proceso++;
+                    }
                 </div>
             }
         </div>
@@ -135,29 +166,37 @@
 
     <div class="container divBlanco">
         <div class="row col-md-12">
+            @{proceso = 0;}
             <label class="questionTitle">QUE EQUIPO ANOTARÁ EN EL SEGUNDO TIEMPO</label>
-            @foreach (var item in Model.lsComplexTeams)
+            @foreach (var item in Model.lsSimpleTeams)
             {
                 <div class="radio">
                     <label>
-                        @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
+                        @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, proceso, new { id = "anotaSeg" + @item })
                         @item
                     </label>
+                    @{
+                proceso++;
+                    }
                 </div>
             }
         </div>
     </div>
 
     <div class="container divGris">
+        @{proceso = 0;}
         <div class="row col-md-12">
-            <label class="questionTitle">HABRA TARJETAS ROJAS EN EL PARTIDO</label>
+            <label class="questionTitle">HABRÁ TARJETAS ROJAS EN EL PARTIDO</label>
             @foreach (var item in Model.lsYesNoAnswer)
             {
                 <div class="radio">
                     <label>
-                        @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
+                        @Html.RadioButtonFor(model => model.tarjetaRoja, proceso, new { id = "rojaPartido" + @item })
                         @item
                     </label>
+                    @{
+                proceso++;
+                    }
                 </div>
             }
         </div>
@@ -165,46 +204,58 @@
 
     <div class="container divBlanco">
         <div class="row col-md-12">
-            <label class="questionTitle">AMBOS EQUIPOS ANOTARAN</label>
+            @{proceso = 0;}
+            <label class="questionTitle">AMBOS EQUIPOS ANOTARAN ANTES DEL FINAL DEL PARTIDO</label>
             @foreach (var item in Model.lsYesNoAnswer)
-                {
-            <div class="radio">
-                <label>
-                    @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
-                    @item
-                </label>
-            </div>
-                }
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.ambosAnotan, proceso, new { id = "ambosGol" + @item })
+                        @item
+                    </label>
+                    @{
+                proceso++;
+                    }
+                </div>
+            }
         </div>
     </div>
 
     <div class="container divGris">
+        @{proceso = 0;}
         <div class="row col-md-12">
             <label class="questionTitle">SE COBRARÁ ALGUN PENALTY EN EL PARTIDO</label>
             @foreach (var item in Model.lsYesNoAnswer)
-                {
-            <div class="radio">
-                <label>
-                    @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
-                    @item
-                </label>
-            </div>
-                }
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.penalty, proceso, new { id = "penalty" + @item })
+                        @item
+                    </label>
+                    @{
+                proceso++;
+                    }
+                </div>
+            }
         </div>
     </div>
 
     <div class="container divBlanco">
         <div class="row col-md-12">
+            @{proceso = 0;}
             <label class="questionTitle">QUE EQUIPO COBRARÁ EL PRIMER TIRO LIBRE</label>
             @foreach (var item in Model.lsComplexTeams)
-                {
-            <div class="radio">
-                <label>
-                    @Html.RadioButtonFor(model => model.anotacionesSegundoTiempo, 0, new { id = "tiroEsquina" + @item })
-                    @item
-                </label>
-            </div>
-                }
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(model => model.equipoCobraPrimerTiroLibre, proceso, new { id = "tiroLibre" + @item })
+                        @item
+                    </label>
+                    @{
+                proceso++;
+                    }
+                </div>
+            }
         </div>
     </div>
 

@@ -1,7 +1,7 @@
 ﻿@model Orkidea.PollaExpress.WebFront.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
-<h4>Use otro servicio para iniciar sesión.</h4>
+<h4>Inicia sesión para participar</h4>
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
@@ -19,7 +19,36 @@
             <div id="socialLoginList">
                 <p>
                     @foreach (AuthenticationDescription p in loginProviders) {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Inicie sesión con su cuenta @p.Caption">@p.AuthenticationType</button>
+                        string color = "", icon = "", label ="";
+                        if (p.Caption == "Facebook")
+                        {
+                            color = "btn-primary";
+                            icon = "fa-facebook";
+                            label = p.Caption;
+                        }
+
+                        if (p.Caption == "Google")
+                        {
+                            color = "btn-danger";
+                            icon = "fa-google-plus";
+                            label = p.Caption;
+                        }
+
+                        if (p.Caption == "Twitter")
+                        {
+                            color = "btn-info";
+                            icon = "fa-twitter";
+                            label = p.Caption;
+                        }
+
+                        if (p.Caption == "Microsoft")
+                        {
+                            color = "btn-success";
+                            icon = "fa-windows";
+                            label = "Hotmail";
+                        }
+                        
+                        <button type="submit" class="btn @color" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Inicie sesión con su cuenta @p.Caption"><span class="fa @icon" aria-hidden="true"></span> @label</button>
                     }
                 </p>
             </div>

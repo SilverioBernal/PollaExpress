@@ -48,17 +48,18 @@ namespace Orkidea.PollaExpress.WebFront
             app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Quitar los comentarios de las siguientes líneas para habilitar el inicio de sesión con proveedores de inicio de sesión de terceros
+            
             //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: Cryptography.Decrypt(ConfigurationManager.AppSettings["liveClientId"].ToString()),
+            //    clientSecret: Cryptography.Decrypt(ConfigurationManager.AppSettings["liveClientId"].ToString()));
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: Cryptography.Decrypt(ConfigurationManager.AppSettings["twitterClientId"].ToString()),
+               consumerSecret: Cryptography.Decrypt(ConfigurationManager.AppSettings["twitterClientSecret"].ToString()));
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: Cryptography.Decrypt(ConfigurationManager.AppSettings["facebookClientId"].ToString()),
+            //   appSecret: Cryptography.Decrypt(ConfigurationManager.AppSettings["facebookClientSecret"].ToString()));
 
             string googleClientId = Cryptography.Decrypt(ConfigurationManager.AppSettings["googleClientId"].ToString());
             string googleClientSecret = Cryptography.Decrypt(ConfigurationManager.AppSettings["googleClientSecret"].ToString());

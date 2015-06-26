@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Orkidea.PollaExpress.WebFront.Models;
+using Orkidea.PollaExpress.Business;
+using Orkidea.PollaExpress.Entities;
 
 namespace Orkidea.PollaExpress.WebFront.Controllers
 {
@@ -58,6 +60,35 @@ namespace Orkidea.PollaExpress.WebFront.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+
+            if (returnUrl != null)
+            {
+                string[] url = returnUrl.Split('/');
+
+                for (int i = 0; i < url.Length; i++)
+                {
+                    if (url[i].ToLower() == "ref")
+                    {
+                        CustomerBiz cb = new CustomerBiz();
+                        Customer customer = cb.GetCustomer(url[i + 1].ToLower());
+
+                        ViewBag.id = customer.id;
+                        ViewBag.logo = customer.logo;
+                        ViewBag.nombre = customer.nombre;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                CustomerBiz cb = new CustomerBiz();
+                Customer customer = cb.GetCustomer("orkidea");
+
+                ViewBag.id = customer.id;
+                ViewBag.logo = customer.logo;
+                ViewBag.nombre = customer.nombre;
+            }
+
             return View();
         }
 
@@ -278,6 +309,7 @@ namespace Orkidea.PollaExpress.WebFront.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+
             // Solicitar redireccionamiento al proveedor de inicio de sesión externo
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }

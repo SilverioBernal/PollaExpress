@@ -50,13 +50,12 @@ namespace Orkidea.PollaExpress.WebFront.Controllers
             ViewBag.logo = customer.logo;
             ViewBag.nombre = customer.nombre;
 
-            DateTime fecha = new DateTime(DateTime.Now.AddHours(4).Year, DateTime.Now.AddHours(4).Month, DateTime.Now.AddHours(4).Day);
-            //DateTime.Now.Hour.
+            DateTime fecha = new DateTime(DateTime.Now.AddHours(-5).Year, DateTime.Now.AddHours(-5).Month, DateTime.Now.AddHours(-5).Day);            
 
             if (customer.mostrarTodo)
-                lsGamesModel.AddRange(lsGames.Where(x => x.gameDate >= DateTime.Now).ToList());
+                lsGamesModel.AddRange(lsGames.Where(x => x.gameDate >= fecha).ToList());
             else
-                lsGamesModel.Add(lsGames.Where(x => x.gameDate >= fecha).OrderBy(x => x.gameDate).First());
+                lsGamesModel.Add(lsGames.Where(x => x.gameDate >= fecha && (x.gameHour.Hours> fecha.Hour && x.gameHour.Minutes> fecha.Minute)).OrderBy(x => x.gameDate).First());
 
             return View(lsGamesModel);
         }
@@ -96,36 +95,70 @@ namespace Orkidea.PollaExpress.WebFront.Controllers
 
             Prediction polla = new Prediction()
             {
-                userMailAddress = prediction.userName,
-                userName = prediction.userName,
-                ambosAnotan = prediction.ambosAnotan == 1 ? true : false,
-                anotacionesPrimerTiempo = prediction.anotacionesPrimerTiempo == 1 ? true : false,
-                anotacionesSegundoTiempo = prediction.anotacionesSegundoTiempo == 1 ? true : false,
-                betTime = DateTime.Now.AddHours(-4),
                 idCustomer = prediction.idCustomer,
-                equipoCobraPrimerTiroLibre = prediction.equipoCobraPrimerTiroLibre,
-                ganadorPrimerTiempo = prediction.ganadorPrimerTiempo,
                 idGame = prediction.idGame,
-                penalty = prediction.penalty == 1 ? true : false,
+                userName = prediction.userName,
+                userMailAddress = prediction.userName,
+                betTime = DateTime.Now.AddHours(-5),
+                team1Score = prediction.team1Score,
+                team2Score = prediction.team2Score,
+                saqueInicial = prediction.saqueInicial == 1 ? true : false,
+                primerTiroEsquina = prediction.primerTiroEsquina,
                 primeraTarjetaAmarilla = prediction.primeraTarjetaAmarilla,
                 primerCambio = prediction.primerCambio,
-                primerTiroEsquina = prediction.primerTiroEsquina,
-                saqueInicial = prediction.saqueInicial == 1 ? true : false,
+                ganadorPrimerTiempo = prediction.ganadorPrimerTiempo,
+                anotacionesPrimerTiempo = prediction.anotacionesPrimerTiempo == 1 ? true : false,
+                anotacionesSegundoTiempo = prediction.anotacionesSegundoTiempo == 1 ? true : false,
                 tarjetaRoja = prediction.tarjetaRoja == 1 ? true : false,
-                team1Score = prediction.team1Score,
-                team2Score = prediction.team2Score
+                ambosAnotan = prediction.ambosAnotan == 1 ? true : false,
+                penalty = prediction.penalty == 1 ? true : false,
+                equipoCobraPrimerTiroLibre = prediction.equipoCobraPrimerTiroLibre,
             };
 
             PredictionBiz pb = new PredictionBiz();
 
             pb.SavePrediction(polla);
 
-            return RedirectToAction("thanks");
+            return RedirectToAction("thanks", new { id= complexId[0]});
         }
 
-        public ActionResult thanks()
+        public ActionResult thanks(string id)
         {
+            CustomerBiz cb = new CustomerBiz();
+            Customer customer = cb.GetCustomer(id);
+
+            ViewBag.id = id;
+            ViewBag.logo = customer.logo;
+            ViewBag.nombre = customer.nombre;
+
             return View();
+        }
+
+        public ActionResult score(string id)
+        {
+            string[] complexId = id.Split('|');
+
+            CustomerBiz cb = new CustomerBiz();
+            Customer customer = cb.GetCustomer(complexId[0]);
+
+            GameBiz gb = new GameBiz();
+            Game game = gb.GetGames().Where(x => x.id.Equals(int.Parse(complexId[1]))).First();
+
+            ViewBag.id = customer.id;
+            ViewBag.logo = customer.logo;
+            ViewBag.partido = game.team1.ToUpper() + " Vs " + game.team2.ToUpper();
+            ViewBag.team1 = game.team1;
+            ViewBag.team2 = game.team2;
+
+
+            VmPolla prediction = new VmPolla(game.team1, game.team2)
+            {
+                userName = User.Identity.GetUserName(),
+                idCustomer = customer.id,
+                idGame = game.id,
+            };
+
+            return View(prediction);
         }
 
         public ActionResult GetLogo(string archivo)
