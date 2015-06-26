@@ -1,0 +1,14 @@
+﻿@model Orkidea.PollaExpress.Entities.Customer
+
+@{
+    ViewBag.Title = "Ref";
+}
+
+<div class="row customerLogo col-md-12">
+    <img src="@Url.Action("GetLogo", new { archivo = ViewBag.logo })" class="img-responsive" align="middle" />
+    <h2>La Polla Express @ViewBag.nombre</h2>
+</div>
+
+<div class="row">
+    @{Html.RenderAction("Game", "Home", new { id = ViewBag.id });}    
+</div>
