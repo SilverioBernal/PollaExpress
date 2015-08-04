@@ -93,7 +93,7 @@ namespace Orkidea.PollaExpress.Utilities
             {
                 throw;
             }
-        }
+        }        
         public static void SendMail(List<MailAddress> to, string subject, string htmlBodyPath, string plainTextBodyPath, string logoPath)
         {
             try
@@ -115,12 +115,17 @@ namespace Orkidea.PollaExpress.Utilities
                 // we need to use the prefix 'cid' in the img src value
                 StreamReader srHtmlText = new StreamReader(htmlBodyPath);
                 AlternateView htmlView = AlternateView.CreateAlternateViewFromString(srHtmlText.ReadToEnd(), null, "text/html");
-                // create image resource from image path using LinkedResource class..
-                LinkedResource imageResource = new LinkedResource(logoPath, "image/png");
-                imageResource.ContentId = "logoImg";
-                imageResource.TransferEncoding = TransferEncoding.Base64;
-                // adding the imaged linked to htmlView...
-                htmlView.LinkedResources.Add(imageResource);
+
+                if (!string.IsNullOrEmpty(logoPath))
+                {
+                    // create image resource from image path using LinkedResource class..                
+                    LinkedResource imageResource = new LinkedResource(logoPath, "image/png");
+                    imageResource.ContentId = "logoImg";
+                    imageResource.TransferEncoding = TransferEncoding.Base64;
+                    // adding the imaged linked to htmlView...
+                    htmlView.LinkedResources.Add(imageResource);
+                }
+
                 // add the views
                 mail.AlternateViews.Add(plainView);
                 mail.AlternateViews.Add(htmlView);

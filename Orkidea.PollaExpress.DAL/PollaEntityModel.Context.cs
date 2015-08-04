@@ -35,5 +35,6 @@ namespace Orkidea.PollaExpress.DAL
         public virtual DbSet<Game> Game { get; set; }
         public virtual DbSet<mimetype> mimetype { get; set; }
         public virtual DbSet<Prediction> Prediction { get; set; }
+        public virtual DbSet<Score> Score { get; set; }
     }
 }

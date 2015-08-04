@@ -12,12 +12,8 @@ namespace Orkidea.PollaExpress.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Prediction
+    public partial class Score
     {
-        public string idCustomer { get; set; }
-        public string userName { get; set; }
-        public string userMailAddress { get; set; }
-        public System.DateTime betTime { get; set; }
         public int idGame { get; set; }
         public int team1Score { get; set; }
         public int team2Score { get; set; }
@@ -32,9 +28,7 @@ namespace Orkidea.PollaExpress.Entities
         public bool ambosAnotan { get; set; }
         public bool penalty { get; set; }
         public int equipoCobraPrimerTiroLibre { get; set; }
-        public Nullable<int> puntaje { get; set; }
     
-        public virtual Customer Customer { get; set; }
         public virtual Game Game { get; set; }
     }
 }

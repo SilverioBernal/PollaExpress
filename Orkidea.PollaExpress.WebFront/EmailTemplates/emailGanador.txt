@@ -1,0 +1,15 @@
+﻿Apreciado Administrador
+
+De:[usuario] - [correo]
+Enviado:[fecha]
+
+
+________________________Inicio Mensaje_________________________
+
+[mensaje]
+________________________Fin Mensaje____________________________
+
+
+Cordialmente,
+
+Club el Rincón de Cajicá

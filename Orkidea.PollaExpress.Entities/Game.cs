@@ -26,5 +26,6 @@ namespace Orkidea.PollaExpress.Entities
         public System.TimeSpan gameHour { get; set; }
     
         public virtual ICollection<Prediction> Prediction { get; set; }
+        public virtual Score Score { get; set; }
     }
 }

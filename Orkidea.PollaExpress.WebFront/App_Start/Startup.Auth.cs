@@ -57,9 +57,9 @@ namespace Orkidea.PollaExpress.WebFront
                consumerKey: Cryptography.Decrypt(ConfigurationManager.AppSettings["twitterClientId"].ToString()),
                consumerSecret: Cryptography.Decrypt(ConfigurationManager.AppSettings["twitterClientSecret"].ToString()));
 
-            //app.UseFacebookAuthentication(
-            //   appId: Cryptography.Decrypt(ConfigurationManager.AppSettings["facebookClientId"].ToString()),
-            //   appSecret: Cryptography.Decrypt(ConfigurationManager.AppSettings["facebookClientSecret"].ToString()));
+            app.UseFacebookAuthentication(
+               appId: Cryptography.Decrypt(ConfigurationManager.AppSettings["facebookClientId"].ToString()),
+               appSecret: Cryptography.Decrypt(ConfigurationManager.AppSettings["facebookClientSecret"].ToString()));
 
             string googleClientId = Cryptography.Decrypt(ConfigurationManager.AppSettings["googleClientId"].ToString());
             string googleClientSecret = Cryptography.Decrypt(ConfigurationManager.AppSettings["googleClientSecret"].ToString());

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Orkidea.PollaExpress.Entities.Game>
+
+@{
+    ViewBag.Title = "GameScore";
+}
+
+<div class="container">
+    <h2>Partidos del torneo</h2>
+    <p>
+        <a href="@Url.Action("CreateGame")" class="btn btn-info">Crear nuevo</a>
+    </p>
+    <div class="row col-xs-12 col-md-12">
+        <table class="table table-bordered table-striped table_vam" id="dt">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Equipo 1</th>
+                    <th>Equipo 2</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.id</td>
+                        <td>@item.team1 </td>
+                        <td>@item.team2 </td>
+                        <td>@item.gameDate </td>
+                        <td>@item.gameHour </td>
+                        <td>
+                            <a href="@Url.Action("score", new { id = item.id })" class="sepV_a" title="Analizar"><i class="fa fa-magic"></i></a>                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $('#dt').dataTable({
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "Ningun resultado encontrado",
+            "info": "Página _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "search": "Buscar:",
+            "paginate": {
+                "first": "Primera",
+                "last": "Ultima",
+                "next": "Siguiente",
+                "previous": "Anterior"
+            },
+        }
+    });
+</script>
+

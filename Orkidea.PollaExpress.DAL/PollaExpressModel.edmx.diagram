@@ -13,12 +13,14 @@
         <EntityTypeShape EntityType="PollaExpressDBModel.Customer" Width="1.5" PointX="0.75" PointY="12.25" />
         <EntityTypeShape EntityType="PollaExpressDBModel.Game" Width="1.5" PointX="0.75" PointY="8.375" />
         <EntityTypeShape EntityType="PollaExpressDBModel.mimetype" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="PollaExpressDBModel.Prediction" Width="1.5" PointX="3" PointY="7.125" />
         <AssociationConnector Association="PollaExpressDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="PollaExpressDBModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="PollaExpressDBModel.AspNetUserRoles" />
+        <EntityTypeShape EntityType="PollaExpressDBModel.Prediction" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="PollaExpressDBModel.Score" Width="1.5" PointX="3" PointY="13.375" />
         <AssociationConnector Association="PollaExpressDBModel.FK_Prediction_Customer" />
         <AssociationConnector Association="PollaExpressDBModel.FK_Prediction_Game1" />
-        <AssociationConnector Association="PollaExpressDBModel.AspNetUserRoles" />
+        <AssociationConnector Association="PollaExpressDBModel.FK_Score_Game" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

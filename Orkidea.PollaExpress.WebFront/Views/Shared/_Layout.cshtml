@@ -62,7 +62,8 @@
                     @if (manager)
                     {
                         <li>@Html.ActionLink("Clientes", "Customers", "Home")</li>
-                    }                    
+                        <li>@Html.ActionLink("Partidos y resultados", "GameScore", "Home")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

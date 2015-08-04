@@ -121,6 +121,26 @@
           <Property Name="ambosAnotan" Type="bit" Nullable="false" />
           <Property Name="penalty" Type="bit" Nullable="false" />
           <Property Name="equipoCobraPrimerTiroLibre" Type="int" Nullable="false" />
+          <Property Name="puntaje" Type="int" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="idGame" />
+          </Key>
+          <Property Name="idGame" Type="int" Nullable="false" />
+          <Property Name="team1Score" Type="int" Nullable="false" />
+          <Property Name="team2Score" Type="int" Nullable="false" />
+          <Property Name="saqueInicial" Type="bit" Nullable="false" />
+          <Property Name="primerTiroEsquina" Type="int" Nullable="false" />
+          <Property Name="primeraTarjetaAmarilla" Type="int" Nullable="false" />
+          <Property Name="primerCambio" Type="int" Nullable="false" />
+          <Property Name="ganadorPrimerTiempo" Type="int" Nullable="false" />
+          <Property Name="anotacionesPrimerTiempo" Type="bit" Nullable="false" />
+          <Property Name="anotacionesSegundoTiempo" Type="bit" Nullable="false" />
+          <Property Name="tarjetaRoja" Type="bit" Nullable="false" />
+          <Property Name="ambosAnotan" Type="bit" Nullable="false" />
+          <Property Name="penalty" Type="bit" Nullable="false" />
+          <Property Name="equipoCobraPrimerTiroLibre" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -202,6 +222,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Score_Game">
+          <End Role="Game" Type="Self.Game" Multiplicity="1" />
+          <End Role="Score" Type="Self.Score" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="idGame" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="PollaExpressDBModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -213,6 +245,7 @@
           <EntitySet Name="Game" EntityType="Self.Game" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="mimetype" EntityType="Self.mimetype" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prediction" EntityType="Self.Prediction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Score" EntityType="Self.Score" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -237,6 +270,10 @@
             <End Role="Game" EntitySet="Game" />
             <End Role="Prediction" EntitySet="Prediction" />
           </AssociationSet>
+          <AssociationSet Name="FK_Score_Game" Association="Self.FK_Score_Game">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="Score" EntitySet="Score" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -251,7 +288,6 @@
           <EntitySet Name="Customer" EntityType="PollaExpressDBModel.Customer" />
           <EntitySet Name="Game" EntityType="PollaExpressDBModel.Game" />
           <EntitySet Name="mimetype" EntityType="PollaExpressDBModel.mimetype" />
-          <EntitySet Name="Prediction" EntityType="PollaExpressDBModel.Prediction" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="PollaExpressDBModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -260,6 +296,12 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="PollaExpressDBModel.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Prediction" EntityType="PollaExpressDBModel.Prediction" />
+          <EntitySet Name="Score" EntityType="PollaExpressDBModel.Score" />
           <AssociationSet Name="FK_Prediction_Customer" Association="PollaExpressDBModel.FK_Prediction_Customer">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Prediction" EntitySet="Prediction" />
@@ -268,9 +310,9 @@
             <End Role="Game" EntitySet="Game" />
             <End Role="Prediction" EntitySet="Prediction" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="PollaExpressDBModel.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          <AssociationSet Name="FK_Score_Game" Association="PollaExpressDBModel.FK_Score_Game">
+            <End Role="Game" EntitySet="Game" />
+            <End Role="Score" EntitySet="Score" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
@@ -355,6 +397,7 @@
           <Property Name="gameDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="gameHour" Type="Time" Nullable="false" Precision="7" />
           <NavigationProperty Name="Prediction" Relationship="PollaExpressDBModel.FK_Prediction_Game1" FromRole="Game" ToRole="Prediction" />
+          <NavigationProperty Name="Score" Relationship="PollaExpressDBModel.FK_Score_Game" FromRole="Game" ToRole="Score" />
         </EntityType>
         <EntityType Name="mimetype">
           <Key>
@@ -364,33 +407,6 @@
           <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="mimetype1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="Prediction">
-          <Key>
-            <PropertyRef Name="idCustomer" />
-            <PropertyRef Name="userName" />
-            <PropertyRef Name="idGame" />
-          </Key>
-          <Property Name="idCustomer" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="userName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="userMailAddress" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
-          <Property Name="betTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="idGame" Type="Int32" Nullable="false" />
-          <Property Name="team1Score" Type="Int32" Nullable="false" />
-          <Property Name="team2Score" Type="Int32" Nullable="false" />
-          <Property Name="saqueInicial" Type="Boolean" Nullable="false" />
-          <Property Name="primerTiroEsquina" Type="Int32" Nullable="false" />
-          <Property Name="primeraTarjetaAmarilla" Type="Int32" Nullable="false" />
-          <Property Name="primerCambio" Type="Int32" Nullable="false" />
-          <Property Name="ganadorPrimerTiempo" Type="Int32" Nullable="false" />
-          <Property Name="anotacionesPrimerTiempo" Type="Boolean" Nullable="false" />
-          <Property Name="anotacionesSegundoTiempo" Type="Boolean" Nullable="false" />
-          <Property Name="tarjetaRoja" Type="Boolean" Nullable="false" />
-          <Property Name="ambosAnotan" Type="Boolean" Nullable="false" />
-          <Property Name="penalty" Type="Boolean" Nullable="false" />
-          <Property Name="equipoCobraPrimerTiroLibre" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="PollaExpressDBModel.FK_Prediction_Customer" FromRole="Prediction" ToRole="Customer" />
-          <NavigationProperty Name="Game" Relationship="PollaExpressDBModel.FK_Prediction_Game1" FromRole="Prediction" ToRole="Game" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="PollaExpressDBModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
@@ -420,6 +436,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="PollaExpressDBModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+          <End Type="PollaExpressDBModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Prediction">
+          <Key>
+            <PropertyRef Name="idCustomer" />
+            <PropertyRef Name="userName" />
+            <PropertyRef Name="idGame" />
+          </Key>
+          <Property Name="idCustomer" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="userName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="userMailAddress" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="betTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="idGame" Type="Int32" Nullable="false" />
+          <Property Name="team1Score" Type="Int32" Nullable="false" />
+          <Property Name="team2Score" Type="Int32" Nullable="false" />
+          <Property Name="saqueInicial" Type="Boolean" Nullable="false" />
+          <Property Name="primerTiroEsquina" Type="Int32" Nullable="false" />
+          <Property Name="primeraTarjetaAmarilla" Type="Int32" Nullable="false" />
+          <Property Name="primerCambio" Type="Int32" Nullable="false" />
+          <Property Name="ganadorPrimerTiempo" Type="Int32" Nullable="false" />
+          <Property Name="anotacionesPrimerTiempo" Type="Boolean" Nullable="false" />
+          <Property Name="anotacionesSegundoTiempo" Type="Boolean" Nullable="false" />
+          <Property Name="tarjetaRoja" Type="Boolean" Nullable="false" />
+          <Property Name="ambosAnotan" Type="Boolean" Nullable="false" />
+          <Property Name="penalty" Type="Boolean" Nullable="false" />
+          <Property Name="equipoCobraPrimerTiroLibre" Type="Int32" Nullable="false" />
+          <Property Name="puntaje" Type="Int32" />
+          <NavigationProperty Name="Customer" Relationship="PollaExpressDBModel.FK_Prediction_Customer" FromRole="Prediction" ToRole="Customer" />
+          <NavigationProperty Name="Game" Relationship="PollaExpressDBModel.FK_Prediction_Game1" FromRole="Prediction" ToRole="Game" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="idGame" />
+          </Key>
+          <Property Name="idGame" Type="Int32" Nullable="false" />
+          <Property Name="team1Score" Type="Int32" Nullable="false" />
+          <Property Name="team2Score" Type="Int32" Nullable="false" />
+          <Property Name="saqueInicial" Type="Boolean" Nullable="false" />
+          <Property Name="primerTiroEsquina" Type="Int32" Nullable="false" />
+          <Property Name="primeraTarjetaAmarilla" Type="Int32" Nullable="false" />
+          <Property Name="primerCambio" Type="Int32" Nullable="false" />
+          <Property Name="ganadorPrimerTiempo" Type="Int32" Nullable="false" />
+          <Property Name="anotacionesPrimerTiempo" Type="Boolean" Nullable="false" />
+          <Property Name="anotacionesSegundoTiempo" Type="Boolean" Nullable="false" />
+          <Property Name="tarjetaRoja" Type="Boolean" Nullable="false" />
+          <Property Name="ambosAnotan" Type="Boolean" Nullable="false" />
+          <Property Name="penalty" Type="Boolean" Nullable="false" />
+          <Property Name="equipoCobraPrimerTiroLibre" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Game" Relationship="PollaExpressDBModel.FK_Score_Game" FromRole="Score" ToRole="Game" />
+        </EntityType>
         <Association Name="FK_Prediction_Customer">
           <End Type="PollaExpressDBModel.Customer" Role="Customer" Multiplicity="1" />
           <End Type="PollaExpressDBModel.Prediction" Role="Prediction" Multiplicity="*" />
@@ -444,9 +512,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="PollaExpressDBModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
-          <End Type="PollaExpressDBModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+        <Association Name="FK_Score_Game">
+          <End Type="PollaExpressDBModel.Game" Role="Game" Multiplicity="1" />
+          <End Type="PollaExpressDBModel.Score" Role="Score" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Game">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Score">
+              <PropertyRef Name="idGame" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -543,9 +619,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="PollaExpressDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
           <EntitySetMapping Name="Prediction">
             <EntityTypeMapping TypeName="PollaExpressDBModel.Prediction">
               <MappingFragment StoreEntitySet="Prediction">
+                <ScalarProperty Name="puntaje" ColumnName="puntaje" />
                 <ScalarProperty Name="equipoCobraPrimerTiroLibre" ColumnName="equipoCobraPrimerTiroLibre" />
                 <ScalarProperty Name="penalty" ColumnName="penalty" />
                 <ScalarProperty Name="ambosAnotan" ColumnName="ambosAnotan" />
@@ -567,14 +652,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="PollaExpressDBModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="Score">
+            <EntityTypeMapping TypeName="PollaExpressDBModel.Score">
+              <MappingFragment StoreEntitySet="Score">
+                <ScalarProperty Name="equipoCobraPrimerTiroLibre" ColumnName="equipoCobraPrimerTiroLibre" />
+                <ScalarProperty Name="penalty" ColumnName="penalty" />
+                <ScalarProperty Name="ambosAnotan" ColumnName="ambosAnotan" />
+                <ScalarProperty Name="tarjetaRoja" ColumnName="tarjetaRoja" />
+                <ScalarProperty Name="anotacionesSegundoTiempo" ColumnName="anotacionesSegundoTiempo" />
+                <ScalarProperty Name="anotacionesPrimerTiempo" ColumnName="anotacionesPrimerTiempo" />
+                <ScalarProperty Name="ganadorPrimerTiempo" ColumnName="ganadorPrimerTiempo" />
+                <ScalarProperty Name="primerCambio" ColumnName="primerCambio" />
+                <ScalarProperty Name="primeraTarjetaAmarilla" ColumnName="primeraTarjetaAmarilla" />
+                <ScalarProperty Name="primerTiroEsquina" ColumnName="primerTiroEsquina" />
+                <ScalarProperty Name="saqueInicial" ColumnName="saqueInicial" />
+                <ScalarProperty Name="team2Score" ColumnName="team2Score" />
+                <ScalarProperty Name="team1Score" ColumnName="team1Score" />
+                <ScalarProperty Name="idGame" ColumnName="idGame" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

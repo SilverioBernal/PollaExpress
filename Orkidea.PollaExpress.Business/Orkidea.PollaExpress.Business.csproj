@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +54,10 @@
     <ProjectReference Include="..\Orkidea.PollaExpress.Entities\Orkidea.PollaExpress.Entities.csproj">
       <Project>{4572cf36-f88e-4c32-b15d-ab24ba5b4a84}</Project>
       <Name>Orkidea.PollaExpress.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orkidea.PollaExpress.Utilities\Orkidea.PollaExpress.Utilities.csproj">
+      <Project>{0819e37e-6c5e-4338-852a-c68ec0cb8ea2}</Project>
+      <Name>Orkidea.PollaExpress.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

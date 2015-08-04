@@ -60,6 +60,20 @@ namespace Orkidea.PollaExpress.WebFront.Controllers
             return View(lsGamesModel);
         }
 
+        public ActionResult CreateGame()
+        {            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateGame(Game game)
+        {
+            GameBiz gb = new GameBiz();
+
+            gb.SaveGame(game);
+            return RedirectToAction("GameScore");
+        }
+
         [Authorize]
         public ActionResult trivia(string id)
         {
@@ -113,6 +127,7 @@ namespace Orkidea.PollaExpress.WebFront.Controllers
                 ambosAnotan = prediction.ambosAnotan == 1 ? true : false,
                 penalty = prediction.penalty == 1 ? true : false,
                 equipoCobraPrimerTiroLibre = prediction.equipoCobraPrimerTiroLibre,
+                puntaje= 0
             };
 
             PredictionBiz pb = new PredictionBiz();
@@ -134,31 +149,56 @@ namespace Orkidea.PollaExpress.WebFront.Controllers
             return View();
         }
 
-        public ActionResult score(string id)
+        public ActionResult GameScore()
         {
-            string[] complexId = id.Split('|');
-
-            CustomerBiz cb = new CustomerBiz();
-            Customer customer = cb.GetCustomer(complexId[0]);
-
             GameBiz gb = new GameBiz();
-            Game game = gb.GetGames().Where(x => x.id.Equals(int.Parse(complexId[1]))).First();
+            List<Game> lsGames = gb.GetGames();            
 
-            ViewBag.id = customer.id;
-            ViewBag.logo = customer.logo;
-            ViewBag.partido = game.team1.ToUpper() + " Vs " + game.team2.ToUpper();
+            return View(lsGames);
+        }
+
+        public ActionResult score(int id)
+        {            
+            GameBiz gb = new GameBiz();
+            Game game = gb.GetGames().Where(x => x.id.Equals(id)).First();
+
             ViewBag.team1 = game.team1;
             ViewBag.team2 = game.team2;
 
 
             VmPolla prediction = new VmPolla(game.team1, game.team2)
-            {
-                userName = User.Identity.GetUserName(),
-                idCustomer = customer.id,
-                idGame = game.id,
+            {                
+                idGame = game.id,                 
             };
 
             return View(prediction);
+        }
+
+        [HttpPost]
+        public ActionResult score(int id, VmPolla score)
+        {
+            score.idGame = id;
+
+            GameBiz gb = new GameBiz();
+
+            gb.SaveGameScore(new Score() {                
+                idGame = score.idGame,                
+                team1Score = score.team1Score,
+                team2Score = score.team2Score,
+                saqueInicial = score.saqueInicial == 1 ? true : false,
+                primerTiroEsquina = score.primerTiroEsquina,
+                primeraTarjetaAmarilla = score.primeraTarjetaAmarilla,
+                primerCambio = score.primerCambio,
+                ganadorPrimerTiempo = score.ganadorPrimerTiempo,
+                anotacionesPrimerTiempo = score.anotacionesPrimerTiempo == 1 ? true : false,
+                anotacionesSegundoTiempo = score.anotacionesSegundoTiempo == 1 ? true : false,
+                tarjetaRoja = score.tarjetaRoja == 1 ? true : false,
+                ambosAnotan = score.ambosAnotan == 1 ? true : false,
+                penalty = score.penalty == 1 ? true : false,
+                equipoCobraPrimerTiroLibre = score.equipoCobraPrimerTiroLibre,
+            }, Server.MapPath("~"));
+
+            return View("index");
         }
 
         public ActionResult GetLogo(string archivo)

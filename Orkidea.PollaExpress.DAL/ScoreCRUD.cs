@@ -9,49 +9,31 @@ using System.Threading.Tasks;
 
 namespace Orkidea.PollaExpress.DAL
 {
-    public static class PredictionCRUD
+    public static class ScoreCRUD
     {
-        /*CRUD prediction*/
+        /*CRUD score*/
 
-        public static List<Prediction> GetPredictionList()
+        public static List<Score> GetScoreList()
         {
 
-            List<Prediction> lstPrediction = new List<Prediction>();
+            List<Score> lstScore = new List<Score>();
 
             try
             {
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     ctx.Configuration.ProxyCreationEnabled = false;
-                    lstPrediction = ctx.Prediction.ToList();
+                    lstScore = ctx.Score.ToList();
                 }
             }
             catch (Exception ex) { throw ex; }
 
-            return lstPrediction;
+            return lstScore;
         }
 
-        public static List<Prediction> GetPredictionList(int idGame)
+        public static Score GetScoreByKey(int idGame)
         {
-
-            List<Prediction> lstPrediction = new List<Prediction>();
-
-            try
-            {
-                using (var ctx = new PollaExpressDBEntities())
-                {
-                    ctx.Configuration.ProxyCreationEnabled = false;
-                    lstPrediction = ctx.Prediction.Where(x => x.idGame.Equals(idGame)).ToList();
-                }
-            }
-            catch (Exception ex) { throw ex; }
-
-            return lstPrediction;
-        }
-
-        public static Prediction GetPredictionByKey(string idCustomer, string userName, int idGame)
-        {
-            Prediction oPrediction = new Prediction();
+            Score oScore = new Score();
 
             try
             {
@@ -59,16 +41,16 @@ namespace Orkidea.PollaExpress.DAL
                 {
                     ctx.Configuration.ProxyCreationEnabled = false;
 
-                    oPrediction =
-                        ctx.Prediction.Where(x => x.idCustomer.Equals(idCustomer) && x.userName == userName && x.idGame.Equals(idGame)).FirstOrDefault();
+                    oScore =
+                        ctx.Score.Where(x => x.idGame.Equals(idGame)).FirstOrDefault();
                 }
             }
             catch (Exception ex) { throw ex; }
 
-            return oPrediction;
+            return oScore;
         }
 
-        public static void SavePrediction(Prediction prediction)
+        public static void SaveScore(Score score)
         {
 
             try
@@ -76,19 +58,19 @@ namespace Orkidea.PollaExpress.DAL
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     //verify if the student exists
-                    Prediction oPrediction = GetPredictionByKey(prediction.idCustomer, prediction.userName, prediction.idGame);
+                    Score oScore = GetScoreByKey(score.idGame);
 
-                    if (oPrediction != null)
+                    if (oScore != null)
                     {
                         // if exists then edit 
-                        ctx.Prediction.Attach(oPrediction);
-                        EntityFrameworkHelper.EnumeratePropertyDifferences(oPrediction, prediction);
+                        ctx.Score.Attach(oScore);
+                        EntityFrameworkHelper.EnumeratePropertyDifferences(oScore, score);
                         ctx.SaveChanges();
                     }
                     else
                     {
                         // else create
-                        ctx.Prediction.Add(prediction);
+                        ctx.Score.Add(score);
                         ctx.SaveChanges();
                     }
                 }
@@ -114,20 +96,20 @@ namespace Orkidea.PollaExpress.DAL
             catch (Exception ex) { throw ex; }
         }
 
-        public static void DeletePrediction(string idCustomer, string userName, int idGame)
+        public static void DeleteScore(int idGame)
         {
             try
             {
                 using (var ctx = new PollaExpressDBEntities())
                 {
                     //verify if the school exists
-                    Prediction oPrediction = GetPredictionByKey(idCustomer, userName, idGame);
+                    Score oScore = GetScoreByKey(idGame);
 
-                    if (oPrediction != null)
+                    if (oScore != null)
                     {
                         // if exists then edit 
-                        ctx.Prediction.Attach(oPrediction);
-                        ctx.Prediction.Remove(oPrediction);
+                        ctx.Score.Attach(oScore);
+                        ctx.Score.Remove(oScore);
                         ctx.SaveChanges();
                     }
                 }
